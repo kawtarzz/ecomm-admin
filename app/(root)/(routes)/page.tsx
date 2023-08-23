@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-import { useStoreModal } from "@/app/hooks/use-store-modal";
+import { useStoreModal } from "@/hooks/use-store-modal";
 
 
 export default function SetupPage() {
@@ -15,9 +15,5 @@ export default function SetupPage() {
     }
   }, [isOpen, onOpen]);
 
-  return (
-
-    <div className="p-4">
-
-    </div>)
+  return null;
 }
