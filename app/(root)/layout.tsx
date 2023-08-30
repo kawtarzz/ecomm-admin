@@ -1,3 +1,4 @@
+
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
@@ -20,7 +21,7 @@ export default async function SetupLayout({
     }
   });
   if (store) {
-    redirect(`/${store.id}`)
+    redirect(`/${store.id}`);
   }
 
   return (
@@ -28,5 +29,4 @@ export default async function SetupLayout({
       {children}
     </>
   )
-
 }
