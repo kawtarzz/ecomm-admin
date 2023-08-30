@@ -25,10 +25,10 @@ export async function POST(
         userId
       }
     });
-
     return NextResponse.json(store);
   } catch (error) {
     console.log('[STORES_POST]', error);
-    return new NextResponse("Internal error", { status: 500 });
+    return new NextResponse("Internal server error", { status: 500 });
+
   }
 }

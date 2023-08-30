@@ -8,6 +8,7 @@ datasource db {
   relationMode = "prisma"
 }
 
+// add cascade delete for all related models: categories, products, etc.
 model Store {
   id        String   @id @default(uuid())
   name      String

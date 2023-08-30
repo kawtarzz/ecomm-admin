@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useStoreModal } from "@/hooks/use-store-modal";
 
 
-export default function SetupPage() {
+const SetupPage = () => {
   const onOpen = useStoreModal((state) => state.onOpen);
   const isOpen = useStoreModal((state) => state.isOpen);
 
@@ -15,5 +15,11 @@ export default function SetupPage() {
     }
   }, [isOpen, onOpen]);
 
-  return null;
+  return (
+    <div className="p-4">
+      Root Page
+    </div>
+  )
 }
+
+export default SetupPage;
