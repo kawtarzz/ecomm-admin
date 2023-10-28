@@ -16,7 +16,6 @@ import { Separator } from "@/components/ui/separator";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { useOrigin } from "@/hooks/use-origin";
 import ImageUpload from "@/components/ui/image-upload";
 
 const formSchema = z.object({
@@ -56,18 +55,17 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-
         await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, data);
       } else {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
       toast.success(toastMessage)
     } catch (error: any) {
       toast.error("Something went wrong, please try again.")
     } finally {
-      setLoading(false);
+      setLoading(false)
+      setOpen(false);
     }
   };
 
@@ -123,7 +121,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                   <ImageUpload
                     value={field.value ? [field.value] : []}
                     disabled={loading}
-                    onChange={(url) => field.onChange(url)}
+                    onChange={field.onChange}
                     onRemove={() => field.onChange('')}
                   />
                 </FormControl>

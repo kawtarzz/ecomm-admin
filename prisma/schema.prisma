@@ -26,5 +26,5 @@ model Billboard {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([storeId], name: "storeId")
+  @@index([storeId])
 }
