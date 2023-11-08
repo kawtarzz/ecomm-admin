@@ -34,16 +34,15 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   if (!isMounted) {
     return null;
   }
-
   const loaderProp = ({ src }: { src: string }) => {
-    return `${config.images.path}${src}`;
+    return `${config.images.path}/${src}`;
   }
 
   return (
     <div>
       <div className="mb-4 flex items-center gap-4">
         {value.map((url) => {
-          console.log('url', url)
+
           return (
             <div key={url} className="relative w-[200px] rounded-md overflow-hidden">
               <div className="z-10 absolute top-2 right-2">
@@ -63,11 +62,12 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           )
         })}
       </div>
-      <CldUploadWidget onUpload={onUpload} uploadPreset="afwcsvgs" >
+      <CldUploadWidget onUpload={onUpload} uploadPreset="afwcsvgs">
         {({ open }) => {
           const onClick = () => {
             open();
           }
+
           return (
             <Button
               type="button"

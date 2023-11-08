@@ -27,17 +27,18 @@ export const CellAction: React.FC<CellActionProps> = ({
 }) => {
   const router = useRouter();
   const params = useParams();
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const onConfirm = async () => {
+  const onDelete = async () => {
     try {
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
-      toast.success('Billboard deleted.');
       router.refresh();
+      toast.success('Billboard deleted.');
     } catch (error) {
-      toast.error('Make sure you removed all categories using this billboard first.');
+      toast.error('You must remove all categories using this billboard first.');
     } finally {
       setOpen(false);
       setLoading(false);
@@ -47,14 +48,14 @@ export const CellAction: React.FC<CellActionProps> = ({
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
     toast.success('Billboard ID copied to clipboard.');
-  }
+  };
 
   return (
     <>
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={onConfirm}
+        onConfirm={onDelete}
         loading={loading}
       />
       <DropdownMenu>

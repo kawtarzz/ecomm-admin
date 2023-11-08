@@ -21,6 +21,7 @@ import ImageUpload from "@/components/ui/image-upload";
 const formSchema = z.object({
   label: z.string().min(1),
   imageUrl: z.string().min(1),
+
 });
 
 type BillboardFormValues = z.infer<typeof formSchema>;
@@ -39,8 +40,8 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const [loading, setLoading] = useState(false);
 
   const title = initialData ? "Edit Billboard" : "Create Billboard";
-  const description = initialData ? "Edit Billboard" : "Add a new Billboard";
-  const toastMessage = initialData ? "Billboard updated" : "Billboard Created.";
+  const description = initialData ? "Edit a Billboard" : "Add a new Billboard";
+  const toastMessage = initialData ? "Billboard updated." : "Billboard Created.";
   const action = initialData ? "Save Changes" : "Create";
 
   const form = useForm<BillboardFormValues>({
@@ -60,12 +61,12 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
       router.refresh();
+      router.push(`/${params.storeId}/billboards`)
       toast.success(toastMessage)
     } catch (error: any) {
       toast.error("Something went wrong, please try again.")
     } finally {
       setLoading(false)
-      setOpen(false);
     }
   };
 
@@ -121,7 +122,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                   <ImageUpload
                     value={field.value ? [field.value] : []}
                     disabled={loading}
-                    onChange={field.onChange}
+                    onChange={(url) => field.onChange(url)}
                     onRemove={() => field.onChange('')}
                   />
                 </FormControl>
