@@ -32,7 +32,7 @@ export const BillboardClient: React.FC<BillboardClientProps> = ({
         >
           <Plus
             className="mr-2 h-4 w-4"
-          /> Add New
+          />Add New
         </Button>
       </div>
       <Separator />

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:css": "postcss app/globals.css -o app/tailwind.output.css"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.23.3",
@@ -35,14 +36,15 @@
     "lucide-react": "^0.268.0",
     "next": "13.4.19",
     "next-cloudinary": "^4.28.0",
-    "postcss": "8.4.28",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
     "react-hot-toast": "^2.4.1",
     "react-spinners": "^0.13.8",
     "tailwind-merge": "^1.14.0",
-    "tailwindcss": "3.3.3",
+    "tailwindcss": "^3.3.5",
     "tailwindcss-animate": "^1.0.6",
     "typescript": "5.1.6",
     "zod": "^3.22.2",

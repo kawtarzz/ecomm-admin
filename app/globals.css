@@ -1,6 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
 
 html,
 body {
@@ -82,7 +84,13 @@ body {
 
 @layer base {
   * {
-    @apply border-border;
+    @use 'tailwindcss/base';
+    @use 'tailwindcss/components';
+    @use 'tailwindcss/utilities';
+
+    .my-element {
+      @apply border;
+    }
   }
 
   body {

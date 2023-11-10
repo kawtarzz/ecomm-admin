@@ -9,8 +9,6 @@ export const metadata = {
   description: 'Admin Dashboard for E-Commerce Stores',
 }
 
-//root layout is a server component. 
-
 export default function RootLayout({
   children,
 }: {

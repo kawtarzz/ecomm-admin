@@ -30,6 +30,7 @@ export async function DELETE(
   { params }: { params: { billboardId: string, storeId: string } }
 ) {
   try {
+    const body = await req.json();
     const { userId } = auth();
 
     if (!userId) {
@@ -56,11 +57,10 @@ export async function DELETE(
         id: params.billboardId,
       }
     });
-
-    return NextResponse.json(billboard);
+    return NextResponse.json({ 'message': 'Billboard deleted' });
   } catch (error) {
     console.log('[BILLBOARD_DELETE]', error);
-    return new NextResponse("Internal error", { status: 500 });
+    return new NextResponse("Sorry, there was an internal error", { status: 500 });
   }
 };
 
@@ -114,7 +114,6 @@ export async function PATCH(
 
       }
     });
-
     return NextResponse.json(billboard);
   } catch (error) {
     console.log('[BILLBOARD_PATCH]', error);

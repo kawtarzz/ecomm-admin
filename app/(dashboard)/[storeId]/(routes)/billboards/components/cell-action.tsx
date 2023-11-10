@@ -17,6 +17,7 @@ import {
 import { AlertModal } from "@/components/modals/alert-modal";
 
 import { BillboardColumn } from "./columns";
+import { NextResponse } from "next/server";
 
 interface CellActionProps {
   data: BillboardColumn;
@@ -31,17 +32,17 @@ export const CellAction: React.FC<CellActionProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const onDelete = async () => {
+  const onConfirm = async () => {
     try {
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
-      router.refresh();
       toast.success('Billboard deleted.');
+      router.refresh();
     } catch (error) {
       toast.error('You must remove all categories using this billboard first.');
     } finally {
-      setOpen(false);
       setLoading(false);
+      setOpen(false);
     }
   };
 
@@ -55,7 +56,7 @@ export const CellAction: React.FC<CellActionProps> = ({
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={onDelete}
+        onConfirm={onConfirm}
         loading={loading}
       />
       <DropdownMenu>
@@ -75,7 +76,7 @@ export const CellAction: React.FC<CellActionProps> = ({
           <DropdownMenuItem
             onClick={() => router.push(`/${params.storeId}/billboards/${data.id}`)}
           >
-            <Edit className="mr-2 h-4 w-4" /> Update
+            <Edit className="mr-2 h-4 w-4" /> Edit
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => setOpen(true)}

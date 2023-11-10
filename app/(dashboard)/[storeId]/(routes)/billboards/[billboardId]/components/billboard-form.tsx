@@ -2,12 +2,12 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { useState } from "react";
-import { Billboard } from "@prisma/client";
-import { Trash } from "lucide-react";
+import { useEffect, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Trash } from "lucide-react";
+import { Billboard } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 
 import { Heading } from "@/components/ui/heading";
@@ -21,7 +21,6 @@ import ImageUpload from "@/components/ui/image-upload";
 const formSchema = z.object({
   label: z.string().min(1),
   imageUrl: z.string().min(1),
-
 });
 
 type BillboardFormValues = z.infer<typeof formSchema>;
@@ -38,6 +37,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [billboards, setBillboards] = useState<Billboard[]>([]);
 
   const title = initialData ? "Edit Billboard" : "Create Billboard";
   const description = initialData ? "Edit a Billboard" : "Add a new Billboard";
@@ -61,29 +61,32 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/billboards`)
       toast.success(toastMessage)
     } catch (error: any) {
       toast.error("Something went wrong, please try again.")
     } finally {
       setLoading(false)
+      setOpen(false);
+      router.push(`/${params.storeId}/billboards`)
     }
   };
+  // issue not reloading functional component after delete // create use effect to get billboard data after onConfirm delete button is clicked
 
   const onDelete = async () => {
     try {
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
-      router.refresh();
-      router.push(`/${params.storeId}/billboards`)
-      toast.success("Billboard deleted.")
+      toast.success("Billboard deleted.");
+      router.push
     } catch (error) {
       toast.error("You must remove all categories using this billboard first.")
     } finally {
       setLoading(false);
       setOpen(false);
+      await axios.get(`/api/${params.storeId}/billboards`).then((res) => setBillboards(res.data));
+      router.push(`/${params.storeId}/billboards`)
     }
-  }
+  };
 
   return (
     <>
@@ -117,7 +120,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
             name="imageUrl"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Background Image</FormLabel>
+                <FormLabel>Image</FormLabel>
                 <FormControl>
                   <ImageUpload
                     value={field.value ? [field.value] : []}

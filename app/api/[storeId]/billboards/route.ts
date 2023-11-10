@@ -10,7 +10,6 @@ export async function POST(
   try {
     const { userId } = auth();
     const body = await req.json();
-
     const { label, imageUrl } = body;
 
     if (!userId) {
@@ -65,6 +64,7 @@ export async function GET(
         storeId: params.storeId,
       },
     });
+    console.log(billboards, prismadb.billboard);
     return NextResponse.json(billboards);
   } catch (error) {
     console.log('[BILLBOARDS_GET]', error);
