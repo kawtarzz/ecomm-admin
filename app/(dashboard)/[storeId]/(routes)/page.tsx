@@ -13,7 +13,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({
     }
   });
   return (
-    <div>
+    <div className="flex-col">
       <h1>
         Active Store: {store?.name}
       </h1>

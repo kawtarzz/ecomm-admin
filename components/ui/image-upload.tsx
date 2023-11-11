@@ -26,14 +26,14 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     setIsMounted(true);
   }, []);
 
-
   const onUpload = (result: any) => {
     onChange(result.info.path);
-  }
+  };
 
   if (!isMounted) {
     return null;
   }
+
   const loaderProp = ({ src }: { src: string }) => {
     return `${config.images.path}/${src}`;
   }
@@ -41,32 +41,29 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   return (
     <div>
       <div className="mb-4 flex items-center gap-4">
-        {value.map((url) => {
-
-          return (
-            <div key={url} className="relative w-[200px] rounded-md overflow-hidden">
-              <div className="z-10 absolute top-2 right-2">
-                <Button type="button" onClick={() => onRemove(url)} variant="destructive" size="icon">
-                  <Trash className="h-4 w-4" />
-                </Button>
-              </div>
-              <Image
-                className="object-cover"
-                alt="Image"
-                src={url}
-                width={500}
-                height={500}
-                loader={loaderProp}
-              />
+        {value.map((url) => (
+          <div key={url} className="relative w-[200px] rounded-md overflow-hidden">
+            <div className="z-10 absolute top-2 right-2">
+              <Button type="button" onClick={() => onRemove(url)} variant="destructive" size="sm">
+                <Trash className="h-4 w-4" />
+              </Button>
             </div>
-          )
-        })}
+            <Image
+              className="object-cover"
+              alt="Image"
+              src={url}
+              width={500}
+              height={500}
+              loader={loaderProp}
+            />
+          </div>
+        ))}
       </div>
       <CldUploadWidget onUpload={onUpload} uploadPreset="afwcsvgs">
         {({ open }) => {
           const onClick = () => {
             open();
-          }
+          };
 
           return (
             <Button
