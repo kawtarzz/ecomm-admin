@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   name: z.string().min(1),
+  category: z.string().min(1),
 });
 
 export const StoreModal = () => {
@@ -26,6 +27,8 @@ export const StoreModal = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      category: "",
+
     },
   });
 

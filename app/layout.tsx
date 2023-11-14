@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 
 import { ModalProvider } from '@/providers/modal-provider'
 import { ToastProvider } from '@/providers/toast-provider'
+import { StrictMode } from 'react'
 
 import './globals.css'
 
@@ -19,14 +20,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en" className={inter.className}>
-        <body>
-          <ToastProvider />
-          <ModalProvider />
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
+    <StrictMode>
+      <ClerkProvider>
+        <html lang="en" className={inter.className}>
+          <body>
+            <ToastProvider />
+            <ModalProvider />
+            {children}
+          </body>
+        </html>
+      </ClerkProvider>
+    </StrictMode>
   )
 }
