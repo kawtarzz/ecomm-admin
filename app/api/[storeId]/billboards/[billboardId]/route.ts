@@ -26,12 +26,11 @@ export async function GET(
 };
 
 export async function DELETE(
-  req: Request,
+  request: Request,
   { params }: { params: { billboardId: string, storeId: string } }
 ) {
   try {
     const { userId } = auth();
-
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 403 });
     }
@@ -51,7 +50,7 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 405 });
     }
 
-    const billboard = await prismadb.billboard.delete({
+    const billboard = await prismadb.billboard.deleteMany({
       where: {
         id: params.billboardId,
       }
@@ -112,7 +111,6 @@ export async function PATCH(
         imageUrl
       }
     });
-
     return NextResponse.json(billboard);
   } catch (error) {
     console.log('[BILLBOARD_PATCH]', error);
